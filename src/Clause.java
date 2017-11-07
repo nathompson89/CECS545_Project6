@@ -5,6 +5,8 @@ public class Clause {
 	private boolean bool2;
 	private boolean bool3;
 	
+	private int var1, var2, var3;
+	
 	private boolean isTrue;
 	
 	public boolean getBool(int b){
