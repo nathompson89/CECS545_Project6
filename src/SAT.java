@@ -8,7 +8,7 @@ public class SAT {
 	private float fitness; //Score relative to how many clauses evaluate to true
 	
 	public SAT(int numVars, int numClauses, int clauseSize){
-		this.vars = new boolean[numVars];
+		this.vars = new boolean[numVars + 1];
 		this.clauses = new int[numClauses][clauseSize];
 	}
 	
