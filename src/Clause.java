@@ -1,23 +1,25 @@
 
 public class Clause {
 
-	private boolean bool1;
-	private boolean bool2;
-	private boolean bool3;
-	
 	private int var1, var2, var3;
 	
 	private boolean isTrue;
 	
-	public boolean getBool(int b){
-		if(b == 1){
-			return bool1;
-		}
-		else if(b == 2){
-			return bool2;
-		}
-		else{
-			return bool3;
-		}
+	public Clause(int v1, int v2, int v3){
+		this.var1 = v1;
+		this.var2 = v2;
+		this.var3 = v3;
+	}
+	
+	public int getVar1(){
+		return this.var1;
+	}
+	
+	public int getVar2(){
+		return this.var2;
+	}
+
+	public int getVar3(){
+		return this.var3;
 	}
 }
