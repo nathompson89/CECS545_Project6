@@ -10,17 +10,9 @@ public class Solution {
 	public Solution(boolean[] v){
 		this.vars = v;
 		this.trueClauses = new int[v.length+1];
-		for(int i : this.trueClauses){
+		for(int i: this.trueClauses){
 			i = 0;
 		}
-	}
-	
-	public boolean[] getVars(){
-		return this.vars;
-	}
-	
-	public float getFitness(){
-		return this.fitness;
 	}
 	
 	public void calculateFitness(Clause[] clauses){
@@ -70,5 +62,17 @@ public class Solution {
 	
 	public int getNumTrue(){
 		return this.numTrue;
+	}
+	
+	public boolean[] getVars(){
+		return this.vars;
+	}
+	
+	public void setVars(boolean[] v){
+		this.vars = v;
+	}
+	
+	public float getFitness(){
+		return this.fitness;
 	}
 }
