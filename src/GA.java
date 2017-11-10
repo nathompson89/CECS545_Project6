@@ -1,45 +1,61 @@
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 public class GA {
 	
-	public static List<Solution> GeneticAlgorithm(SAT sat, int popSize, int numGens, int mutRate){
-		List<Solution> parents = new ArrayList<Solution>();
-		List<Solution> children = new ArrayList<Solution>();
-		int numChildren = 100; //Test this value
+	public static Solution GeneticAlgorithm(SAT sat){
+		ArrayList<Solution> parents = new ArrayList<Solution>();
+		ArrayList<Solution> children = new ArrayList<Solution>();
+		int numGens = 500;
+		int popSize = 100; 
+		double mutationRate = 0.01;
 		
 		//Initialize parents as initial population
-		
+		parents = genInitial(sat, popSize);
 		
 		for(int i = 0; i < numGens; i++){
-			
-			
-			for(int j = 0; j < numChildren; j++){
-				//Choose 2 parents via tournament selection
 				
+			for(int j = 0; j < popSize; j++){
+				//Choose 2 parents via tournament selection
+				Solution parent1 = tournamentSelection(parents, 5);
+				Solution parent2 = tournamentSelection(parents, 5);
 				
 				//Crossover p1 and p2
-				//Test for mutation of child1
+				Solution child1 = Crossover(parent1, parent2);
 				
+				//Test for mutation of child1
+				if((Math.random() < mutationRate)){
+					child1 = mutate(child1);
+				} 
 				
 				//Crossover p2 and p1
+				Solution child2 = Crossover(parent2, parent1);
+				
 				//Test for mutation of child2
+				if((Math.random() < mutationRate)){
+					child2 = mutate(child2);
+				} 
 				
+				child1.calculateFitness(sat.getClauses());
+				child2.calculateFitness(sat.getClauses());
 				
-				//Add children to pool of children
+				//get best child
+				if(child1.getFitness() > child2.getFitness()){
+					children.add(child1);
+				} else {
+					children.add(child2);
+				}
 			}
 			
-			//Choose children (sort by best fit, or tournament selection?)
-			//to be passed to next population (should this include current parents?)
-			
-			
 			//Selected children become new parent population
+			parents = new ArrayList<Solution>(children);
+			
 			//Reset children list
+			children.clear();
 		}
 		
+		Solution bestSolution = getBest(parents);
 		
-		return children;
+		return bestSolution;
 	}
 	
 	public static Solution Crossover(Solution p1, Solution p2){
@@ -66,32 +82,88 @@ public class GA {
 			if(vars[i] != p1.getVars()[i]){
 				vars[i] = p2.getVars()[i];
 			}
-		}
-		
-		
+		}	
 		
 		Solution child = new Solution(vars);
 				
 		return child;
 	}
 	
-	public void Mutate(Solution s){
-		//Randomly flipping bits will probably be best
+	private static ArrayList<Solution> genInitial(SAT sat, int popSize){
+		
+		ArrayList<Solution> initial = new ArrayList<Solution>();
+		
+		for(int i = 0; i < popSize; i++) {
+			boolean[] sol = new boolean[sat.getNumVars() + 1];
+			for(int j = 0; j < sol.length; j++) {
+				if(Math.random() < 0.5){
+					sol[j] = true;
+				} else {
+					sol[j] = false;
+				}
+			}
+			
+			Solution s = new Solution(sol);
+			s.calculateFitness(sat.getClauses());
+			initial.add(s);
+		}
+
+		return initial;
 	}
 	
-	public Solution tournamentSelection(List<Solution> parents, int n){
+	public static Solution mutate(Solution s){
+		//make list from vars in solution 
+		boolean[] varList = s.getVars();
+		ArrayList<Integer> elements = new ArrayList<Integer>();
+		int i = 0;
+		
+		//generate the five random elements without repeating any
+		while(i < 5){
+			int rand = (int) (Math.random() * s.getVars().length);
+			
+			if(!elements.contains(rand)){
+				elements.add(rand);
+				i++;
+			}
+		}
+		
+		//flip the bit of the five random elements
+		for(int e: elements){
+			varList[e] = !varList[e];
+		}
+		
+		//set the vars of s to the mutated varList
+		s.setVars(varList);
+		
+		return s;
+	}
+	
+	public static Solution tournamentSelection(ArrayList<Solution> parents, int n){
 		//Method for selecting a parent from 5 random individuals
 		//Returns individual with best fitness
 		Solution best = null;
-		Random rng = new Random();
 		for(int i = 1; i <= n; i++){
-			int r = rng.nextInt(parents.size());
+			int r = (int) (Math.random() * parents.size());
 			Solution t = parents.get(r);
 			if(best == null || best.getFitness() > t.getFitness()){
 				best = t;
 			}
 		}
 		return best;
+	}
+	
+	private static Solution getBest(ArrayList<Solution> parents) {
+		//start with the first parent in the list
+		Solution bestSolution = parents.get(0);
+		
+		//compare parents
+		for(Solution s: parents){
+			if(bestSolution.getFitness() < s.getFitness())
+				bestSolution = s;
+		}
+		
+		//return best parent
+		return bestSolution;
 	}
 	
 }

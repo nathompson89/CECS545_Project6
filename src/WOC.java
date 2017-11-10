@@ -2,7 +2,7 @@ import java.util.List;
 
 public class WOC {
 
-	public Solution WisdomOfCrowds(List<Solution> crowd, int numVars){
+	public static Solution WisdomOfCrowds(List<Solution> crowd, int numVars){
 		
 		boolean[] newVars = new boolean[numVars+1];
 		for(int i = 1; i <= numVars; i++){

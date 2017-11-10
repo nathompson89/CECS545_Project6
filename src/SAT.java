@@ -9,16 +9,17 @@ public class SAT {
 	//private boolean[] vars; //Assignments for each variable
 	private Clause[] clauses; //Represents boolean expression in CNF
 	//private float fitness; //Score relative to how many clauses evaluate to true
+	private int numVars = 0;
 	
 	public SAT(String filename) throws FileNotFoundException{
 		//this.vars = new boolean[numVars + 1];
 		readSATFile(filename);
 	}
-	
+
 	public void readSATFile(String filename) throws FileNotFoundException{
 		
 		Scanner scan1 = new Scanner(new File(filename));
-		int numClauses = 0, numVars = 0;
+		int numClauses = 0;
 		
 		
 		for(int i = 0; i < 4; i++){
@@ -26,7 +27,6 @@ public class SAT {
 				scan1.next();
 				scan1.next();
 				numVars = scan1.nextInt();
-				System.out.println("Number of variables: " + numVars);
 			}
 			scan1.nextLine();
 		}
@@ -35,7 +35,6 @@ public class SAT {
 			scan1.nextLine();
 		}
 		
-		System.out.println(numClauses);
 		scan1.close();
 		
 		Clause c[] = new Clause[numClauses];
@@ -65,8 +64,15 @@ public class SAT {
 		return this.clauses;
 	}
 	
-	public Clause getClauses(int i){
+	public Clause getClause(int i){
 		return this.clauses[i];
 	}
 	
+	public int getNumVars() {
+		return numVars;
+	}
+
+	public void setNumVars(int numVars) {
+		this.numVars = numVars;
+	}
 }
