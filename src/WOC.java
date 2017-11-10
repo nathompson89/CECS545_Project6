@@ -12,7 +12,7 @@ public class WOC {
 					numTrue++;
 				}
 			}
-			if(numTrue >= numVars/2){
+			if(numTrue >= crowd.size()/2){
 				newVars[i] = true;
 			}
 			else{
@@ -22,6 +22,8 @@ public class WOC {
 		
 		Solution WOCSolution = new Solution(newVars);
 		return WOCSolution;
+		
+		
 	}
 	
 }

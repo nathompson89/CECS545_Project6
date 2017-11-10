@@ -15,23 +15,26 @@ public class Controller {
 		ArrayList<Solution> bestSolutions = new ArrayList<Solution>();
 		for(int i = 0; i < 20; i++) {
 			bestSolutions.add(GA.GeneticAlgorithm(sat));
-			System.out.println("GA " + i + " fitness: " + bestSolutions.get(i).getFitness());
 		}
-		
-		System.out.println();
 		 
 		ArrayList<Solution> experts = findExperts(bestSolutions);
 		
 		for(int i = 0; i < 5; i++) {
-			System.out.println("Expert " + i + " fitness: " + experts.get(i).getFitness());
+			System.out.println("Expert " + (i + 1) + " fitness: " + experts.get(i).getFitness());
 		}
 		
+		System.out.println();
 		
+		VarTracker vt = new VarTracker(experts, sat);	
 		
 		//Call WOC.WisdomOfCrowds() to get hopefully better solution
+		experts = vt.flipHeuristic(experts);
 		Solution wisestSolution = WOC.WisdomOfCrowds(experts, sat.getNumVars());
 		wisestSolution.calculateFitness(sat.getClauses());
 		
+		for(int i = 0; i < 5; i++) {
+			System.out.println("New Expert " + (i + 1) + " fitness: " + experts.get(i).getFitness());
+		}
 		System.out.println("\nWisdom of Crowds Fitness: " + wisestSolution.getFitness());
 		
 		//calculate the end time

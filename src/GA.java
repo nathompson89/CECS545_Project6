@@ -5,16 +5,18 @@ public class GA {
 	public static Solution GeneticAlgorithm(SAT sat){
 		ArrayList<Solution> parents = new ArrayList<Solution>();
 		ArrayList<Solution> children = new ArrayList<Solution>();
-		int numGens = 500;
+		int numGens = 100;
 		int popSize = 100; 
-		double mutationRate = 0.01;
+		double mutationRate = 0.015;
 		
 		//Initialize parents as initial population
 		parents = genInitial(sat, popSize);
 		
 		for(int i = 0; i < numGens; i++){
-				
-			for(int j = 0; j < popSize; j++){
+			
+			children.add(getBest(parents));
+			
+			for(int j = 0; j < popSize - 1; j++){
 				//Choose 2 parents via tournament selection
 				Solution parent1 = tournamentSelection(parents, 5);
 				Solution parent2 = tournamentSelection(parents, 5);
@@ -63,16 +65,16 @@ public class GA {
 		
 		//Find maximum value in p1.trueClauses
 		int max = 0;
-		for(int i = 1; i < p1.trueClauses.length; i++){
-			if(p1.trueClauses[i] > max){
-				max = p1.trueClauses[i];
+		for(int i = 1; i < p1.getTrueClauses().length; i++){
+			if(p1.getTrueClauses()[i] > max){
+				max = p1.getTrueClauses()[i];
 			}
 		}
 		
 		//Fill in child values using good p1 values
 		max = (int) max/2;
 		for(int i = 1; i < p1.getVars().length; i++){
-			if(p1.trueClauses[i] >= max){
+			if(p1.getTrueClauses()[i] >= max){
 				vars[i] = p1.getVars()[i];
 			}
 		}
@@ -89,6 +91,7 @@ public class GA {
 		return child;
 	}
 	
+	//method to generate the starting parents 
 	private static ArrayList<Solution> genInitial(SAT sat, int popSize){
 		
 		ArrayList<Solution> initial = new ArrayList<Solution>();
