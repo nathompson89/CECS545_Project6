@@ -32,13 +32,10 @@ public class VarTracker {
 					falseSumValues[j] += experts.get(i).getTrueClauses()[j];
 				}
 			}
-		}
-		
-		sortVars();
-		
+		}	
 	}
 	
-	private void sortVars(){
+	public void sortVars(){
 		int trueMax = 0; 
 		int falseMax = 0;
 		
@@ -120,4 +117,14 @@ public class VarTracker {
 		
 		return sol;
 	}
+
+	public int[][] getFalseVarList() {
+		return falseVarList;
+	}
+
+	public int[][] getTrueVarList() {
+		return trueVarList;
+	}
+
+	
 }

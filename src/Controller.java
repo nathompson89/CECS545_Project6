@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Controller {
 	
-	private static int expertSize = 5;
+	private static int expertSize = 20;
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
@@ -19,20 +19,31 @@ public class Controller {
 		 
 		ArrayList<Solution> experts = findExperts(bestSolutions);
 		
-		for(int i = 0; i < 5; i++) {
+		for(int i = 0; i < expertSize; i++) {
 			System.out.println("Expert " + (i + 1) + " fitness: " + experts.get(i).getFitness());
 		}
 		
 		System.out.println();
 		
-		VarTracker vt = new VarTracker(experts, sat);	
+		//generate 2D arrays for experts without changing them
+		VarTracker vt1 = new VarTracker(experts, sat);
+		
+		//apply flip heuristic to experts
+		vt1.sortVars();
+		experts = vt1.flipHeuristic(experts);
+		
+		//create new 2D arrays with updated experts
+		VarTracker vt2 = new VarTracker(experts, sat);
 		
 		//Call WOC.WisdomOfCrowds() to get hopefully better solution
-		experts = vt.flipHeuristic(experts);
 		Solution wisestSolution = WOC.WisdomOfCrowds(experts, sat.getNumVars());
 		wisestSolution.calculateFitness(sat.getClauses());
 		
-		for(int i = 0; i < 5; i++) {
+		
+		
+		
+		
+		for(int i = 0; i < expertSize; i++) {
 			System.out.println("New Expert " + (i + 1) + " fitness: " + experts.get(i).getFitness());
 		}
 		System.out.println("\nWisdom of Crowds Fitness: " + wisestSolution.getFitness());
