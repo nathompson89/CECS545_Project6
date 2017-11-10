@@ -6,12 +6,18 @@ public class Solution {
 	private int numTrue, sequenceStart, sequenceLength;
 	
 	public int[] trueClauses;
+	public int[] numClauses;
+	public float[] crossoverValue;
 	
 	public Solution(boolean[] v){
 		this.vars = v;
-		this.trueClauses = new int[v.length+1];
-		for(int i: this.trueClauses){
-			i = 0;
+		this.trueClauses = new int[v.length];
+		this.numClauses = new int[v.length];
+		this.crossoverValue = new float[v.length];
+		for(int i = 0; i < trueClauses.length; i++){
+			this.trueClauses[i] = 0;
+			this.numClauses[i] = 0;
+			this.crossoverValue[i] = 0;
 		}
 	}
 	
@@ -21,6 +27,9 @@ public class Solution {
 			int v1 = Math.abs(c.getVar1());
 			int v2 = Math.abs(c.getVar2());
 			int v3 = Math.abs(c.getVar3());
+			this.numClauses[v1]++;
+			this.numClauses[v2]++;
+			this.numClauses[v3]++;
 			
 			if(((c.getVar1() > 0) && (vars[v1] == true)) || ((c.getVar1() < 0) && (vars[v1] == false))){
 				this.numTrue++;
@@ -42,6 +51,14 @@ public class Solution {
 		}
 		
 		this.fitness = ((float) this.numTrue/clauses.length)*100;
+		for(int i = 0; i < numClauses.length; i++){
+			if(this.numClauses[i] > 0){
+				this.crossoverValue[i] = (float)(this.trueClauses[i]/this.numClauses[i]);
+			}
+			else{
+				this.crossoverValue[i] = 0;
+			}
+		}
 	}
 	
 	public void setStart(int s){

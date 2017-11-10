@@ -5,9 +5,10 @@ public class GA {
 	public static Solution GeneticAlgorithm(SAT sat){
 		ArrayList<Solution> parents = new ArrayList<Solution>();
 		ArrayList<Solution> children = new ArrayList<Solution>();
+		ArrayList<Solution> newGen = new ArrayList<Solution>();
 		int numGens = 500;
-		int popSize = 100; 
-		double mutationRate = 0.01;
+		int popSize = 200; 
+		double mutationRate = 0.03;
 		
 		//Initialize parents as initial population
 		parents = genInitial(sat, popSize);
@@ -15,6 +16,7 @@ public class GA {
 		for(int i = 0; i < numGens; i++){
 				
 			for(int j = 0; j < popSize; j++){
+				//System.out.println(parents.size());
 				//Choose 2 parents via tournament selection
 				Solution parent1 = tournamentSelection(parents, 5);
 				Solution parent2 = tournamentSelection(parents, 5);
@@ -39,15 +41,37 @@ public class GA {
 				child2.calculateFitness(sat.getClauses());
 				
 				//get best child
-				if(child1.getFitness() > child2.getFitness()){
+				/*if(child1.getFitness() > child2.getFitness()){
 					children.add(child1);
 				} else {
 					children.add(child2);
-				}
+				}*/
+				children.add(child1);
+				children.add(child2);
+				
+				Sort.SortList(newGen, child1, popSize);
+				Sort.SortList(newGen, child2, popSize);
 			}
 			
+			for(Solution s : parents){
+				Sort.SortList(newGen, s, popSize);
+			}
+			parents = new ArrayList<Solution>(newGen);
+			newGen.clear();
+			//System.out.println("Sorted list size: " + newGen.size());
+			/*Solution bestParent = getBest(parents);
+			children.addAll(new ArrayList<Solution>(parents));
+			parents.clear();
+			parents.add(getBest(children));
+			parents.add(bestParent);*/
+		//	while(parents.size() < popSize){
+				//Solution victor = tournamentSelection(children, 6);
+				parents.addAll(genInitial(sat, (popSize-parents.size())));
+			//}
+			
+			
 			//Selected children become new parent population
-			parents = new ArrayList<Solution>(children);
+			//parents = new ArrayList<Solution>(children);
 			
 			//Reset children list
 			children.clear();
@@ -62,17 +86,18 @@ public class GA {
 		boolean[] vars = new boolean[p1.getVars().length];
 		
 		//Find maximum value in p1.trueClauses
-		int max = 0;
+		/*int max = 0;
 		for(int i = 1; i < p1.trueClauses.length; i++){
 			if(p1.trueClauses[i] > max){
 				max = p1.trueClauses[i];
 			}
-		}
+		}*/
 		
 		//Fill in child values using good p1 values
-		max = (int) max/2;
+		//max = (int) max/2;
 		for(int i = 1; i < p1.getVars().length; i++){
-			if(p1.trueClauses[i] >= max){
+			//if(p1.trueClauses[i] >= max){
+			if(p1.crossoverValue[i] > 0.5f){
 				vars[i] = p1.getVars()[i];
 			}
 		}
@@ -158,7 +183,7 @@ public class GA {
 		
 		//compare parents
 		for(Solution s: parents){
-			if(bestSolution.getFitness() < s.getFitness())
+			if(s.getFitness() > bestSolution.getFitness())
 				bestSolution = s;
 		}
 		
