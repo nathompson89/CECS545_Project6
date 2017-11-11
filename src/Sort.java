@@ -6,7 +6,6 @@ import java.util.Scanner;
 public class Sort {
 
 	public static void SortList(ArrayList<Solution> solutions, Solution s, int numSolutions){
-		Scanner scan = new Scanner(System.in);
 		if(solutions.size() == 0){
 			solutions.add(s);
 		}

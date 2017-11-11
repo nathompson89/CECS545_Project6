@@ -8,7 +8,7 @@ public class GA {
 		ArrayList<Solution> newGen = new ArrayList<Solution>();
 		int numGens = 100;
 		int popSize = 100; 
-		double mutationRate = 0.015;
+		double mutationRate = 0.03;
 		
 		//Initialize parents as initial population
 		parents = genInitial(sat, popSize);
@@ -67,7 +67,7 @@ public class GA {
 			parents.add(bestParent);*/
 		//	while(parents.size() < popSize){
 				//Solution victor = tournamentSelection(children, 6);
-				parents.addAll(genInitial(sat, (popSize-parents.size())));
+			parents.addAll(genInitial(sat, (popSize-parents.size())));
 			//}
 			
 			
