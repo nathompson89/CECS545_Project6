@@ -6,7 +6,7 @@ public class GA {
 		ArrayList<Solution> parents = new ArrayList<Solution>();
 		ArrayList<Solution> children = new ArrayList<Solution>();
 		ArrayList<Solution> newGen = new ArrayList<Solution>();
-		int numGens = 500;
+		int numGens = 100;
 		int popSize = 100; 
 		double mutationRate = 0.015;
 		
