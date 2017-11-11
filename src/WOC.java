@@ -1,8 +1,10 @@
 import java.util.List;
 
 public class WOC {
+	
+	private static double gain = 0;
 
-	public static Solution WisdomOfCrowds(List<Solution> crowd, int numVars, Clause[] clauses){
+	public static Solution WisdomOfCrowds(List<Solution> crowd, int numVars, Clause[] clauses, SAT sat){
 		
 		boolean[] newVars = new boolean[numVars+1]; //default false
 		boolean[] wocVar = new boolean[numVars+1]; //default false
@@ -14,14 +16,14 @@ public class WOC {
 					numTrue++;
 				}
 			}
-			if(numTrue >= crowd.size()/2){
+			/*if(numTrue >= crowd.size()/2){
 				newVars[i] = true;
 			}
 			else{
 				newVars[i] = false;
-			}
+			}*/
 			
-			/*if(numTrue >= numVars*0.90f){
+			if(numTrue >= numVars*0.90f){
 				newVars[i] = true;
 				wocVar[i] = true;
 				woc++;
@@ -30,7 +32,7 @@ public class WOC {
 				newVars[i] = false;
 				wocVar[i] = false;
 				woc++;
-			}*/
+			}
 		}
 		
 		/*System.out.println("WOC took " + woc + " variables");
@@ -64,9 +66,35 @@ public class WOC {
 		}*/
 		
 		Solution WOCSolution = new Solution(newVars);
+		
+		for(int i = 0; i < WOCSolution.getVars().length; i++){
+			if(wocVar[i] == false){
+				flip(WOCSolution, i, sat);
+			}
+		}
+		
+		
 		return WOCSolution;
 		
 		
+	}
+	
+	private static Solution flip(Solution sol, int j, SAT sat){
+		double origFit = sol.getFitness();
+		
+		//try flipping the bit and get the new fitness 
+		sol.flipBit(j);
+		sol.calculateFitness(sat.getClauses());
+		double dif = sol.getFitness() - origFit;
+		
+		//if the fitness after flipping the bit is less than the gain, 
+		//then it sucked so flip it back
+		if(dif < gain){
+			sol.flipBit(j);
+			sol.calculateFitness(sat.getClauses());
+		}
+		
+		return sol;
 	}
 	
 }
