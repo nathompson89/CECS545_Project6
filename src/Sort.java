@@ -1,7 +1,5 @@
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
 
 public class Sort {
 
@@ -18,13 +16,10 @@ public class Sort {
 				}
 				else{
 					for(int i = 0; i < solutions.size(); i++){
-						if(/*s.getFitness() == solutions.get(i).getFitness() && */Arrays.equals(s.getVars(), solutions.get(i).getVars())){
+						if(Arrays.equals(s.getVars(), solutions.get(i).getVars())){
 							return;
 						}
 						else if(s.getFitness() >= solutions.get(i).getFitness()){
-						//if(s.getFitness() >= solutions.get(i).getFitness()){
-							//System.out.println(numSolutions + " " + solutions.size());
-							//scan.nextLine();
 							solutions.add(i, s);
 							solutions.remove(numSolutions);
 							return;
