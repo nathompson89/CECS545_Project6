@@ -5,7 +5,7 @@ public class GA {
 	public static Solution GeneticAlgorithm(SAT sat){
 		ArrayList<Solution> parents = new ArrayList<Solution>();
 		ArrayList<Solution> children = new ArrayList<Solution>();
-		int numGens = 100;
+		int numGens = 500;
 		int popSize = 100; 
 		double mutationRate = 0.015;
 		
