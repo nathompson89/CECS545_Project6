@@ -22,14 +22,14 @@ public class Controller {
 		 
 		ArrayList<Solution> experts = findExperts(bestSolutions);
 		
-		for(int i = 0; i < 5; i++) {
+		for(int i = 0; i < expertSize; i++) {
 			System.out.println("Expert " + i + " fitness: " + experts.get(i).getFitness());
 		}
 		
 		
 		
 		//Call WOC.WisdomOfCrowds() to get hopefully better solution
-		Solution wisestSolution = WOC.WisdomOfCrowds(experts, sat.getNumVars());
+		Solution wisestSolution = WOC.WisdomOfCrowds(experts, sat.getNumVars(), sat.getClauses());
 		wisestSolution.calculateFitness(sat.getClauses());
 		
 		System.out.println("\nWisdom of Crowds Fitness: " + wisestSolution.getFitness());
