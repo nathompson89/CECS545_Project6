@@ -61,6 +61,17 @@ public class Solution {
 		}
 	}
 	
+	public void printSolution(){
+		for(int i = 1; i < vars.length; i++){
+			if(vars[i] == true){
+				System.out.print("1 ");
+			}
+			else{
+				System.out.print("0 ");
+			}
+		}
+	}
+	
 	public void setStart(int s){
 		this.sequenceStart = s;
 	}
