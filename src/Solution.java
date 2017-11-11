@@ -4,10 +4,10 @@ public class Solution {
 	private boolean[] vars;
 	private float fitness;
 	private int numTrue, sequenceStart, sequenceLength;
-	
 	public int[] trueClauses;
 	public int[] numClauses;
 	public float[] crossoverValue;
+
 	
 	public Solution(boolean[] v){
 		this.vars = v;
@@ -91,5 +91,17 @@ public class Solution {
 	
 	public float getFitness(){
 		return this.fitness;
+	}
+
+	public int[] getTrueClauses() {
+		return trueClauses;
+	}
+
+	public void setTrueClauses(int[] trueClauses) {
+		this.trueClauses = trueClauses;
+	}
+	
+	public void flipBit(int i){
+		this.vars[i] = !this.vars[i];
 	}
 }

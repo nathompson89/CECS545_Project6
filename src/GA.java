@@ -17,6 +17,7 @@ public class GA {
 				
 			for(int j = 0; j < popSize; j++){
 				//System.out.println(parents.size());
+
 				//Choose 2 parents via tournament selection
 				Solution parent1 = tournamentSelection(parents, 5);
 				Solution parent2 = tournamentSelection(parents, 5);
@@ -90,6 +91,7 @@ public class GA {
 		for(int i = 1; i < p1.trueClauses.length; i++){
 			if(p1.trueClauses[i] > max){
 				max = p1.trueClauses[i];
+
 			}
 		}*/
 		
@@ -114,6 +116,7 @@ public class GA {
 		return child;
 	}
 	
+	//method to generate the starting parents 
 	private static ArrayList<Solution> genInitial(SAT sat, int popSize){
 		
 		ArrayList<Solution> initial = new ArrayList<Solution>();
