@@ -77,7 +77,9 @@ public class GA {
 			//Reset children list
 			children.clear();
 		}
-		
+		for(Solution s : parents){
+			s.printSolution();
+		}
 		Solution bestSolution = getBest(parents);
 		
 		return bestSolution;

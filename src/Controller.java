@@ -9,11 +9,11 @@ public class Controller {
 		
 		long startTime = System.currentTimeMillis();
 		
-		SAT sat = new SAT("SAT1.CNF");
+		SAT sat = new SAT("SAT5.CNF");
 		
 		//Call GA.GeneticAlgorithm() to get list of solutions to pass to WOC
 		ArrayList<Solution> bestSolutions = new ArrayList<Solution>();
-		for(int i = 0; i < 50; i++) {
+		for(int i = 0; i < 100; i++) {
 			bestSolutions.add(GA.GeneticAlgorithm(sat));
 		}
 		 
@@ -44,15 +44,15 @@ public class Controller {
 		
 		
 		
-		/*double sum = 0;
+		double sum = 0;
 		for(int i = 0; i < expertSize; i++) {
-            System.out.println("New Expert " + (i + 1) + " fitness: " + experts.get(i).getFitness());
+            //System.out.println("New Expert " + (i + 1) + " fitness: " + experts.get(i).getFitness());
             sum += experts.get(i).getFitness();
         }
 
         double avg = sum / expertSize;
 
-        System.out.println("\nAvg Improved Expert Fitness: " + avg);*/
+        System.out.println("\nAvg Improved Expert Fitness: " + avg);
         System.out.println("\nWisdom of Crowds Fitness: " + wisestSolution.getFitness());
 		
 		//calculate the end time
