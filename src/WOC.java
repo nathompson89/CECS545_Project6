@@ -15,64 +15,35 @@ public class WOC {
 				if(s.getVars()[i] == true){
 					numTrue++;
 				}
-			}
-			/*if(numTrue >= crowd.size()/2){
-				newVars[i] = true;
-			}
-			else{
-				newVars[i] = false;
-			}*/
-			
-			if(numTrue >= numVars*0.90f){
+			}	
+			if(numTrue >= crowd.size()*0.60f){
 				newVars[i] = true;
 				wocVar[i] = true;
 				woc++;
 			}
-			else if(numTrue <= numVars*0.1f){
+			else if(numTrue < crowd.size()*0.40f){
 				newVars[i] = false;
-				wocVar[i] = false;
+				wocVar[i] = true;
 				woc++;
 			}
+			System.out.println("Variable " + i + ": True(" + numTrue + ")    False(" + (crowd.size()-numTrue) + ")");
 		}
 		
-		/*System.out.println("WOC took " + woc + " variables");
-		boolean[] tempVars = new boolean[numVars+1];
-		for(int i = 0; i < newVars.length; i++){
-			tempVars[i] = newVars[i];
-		}
+		System.out.println("WOC took " + woc + " variables");
 		
-		Solution best = new Solution(newVars);
-		best.calculateFitness(clauses);
-		for(int i = 0; i < 100; i++){
-			for(int k = 0; k < newVars.length; k++){
-				tempVars[k] = newVars[k];
-			}
-			for(int j = 0; j < tempVars.length; j++){
-				if(wocVar[j] == false){
-					if(Math.random() < 0.5){
-						tempVars[j] = true;
-					}
-					else{
-						tempVars[j] = false;
-					}
-				}
-			}
-			Solution temp = new Solution(tempVars);
-			temp.calculateFitness(clauses);
-			if(temp.getFitness() > best.getFitness()){
-				System.out.println("New best solution " + temp.getFitness());
-				best = new Solution(tempVars);
-			}
-		}*/
 		
 		Solution WOCSolution = new Solution(newVars);
-		
-		for(int i = 0; i < WOCSolution.getVars().length; i++){
-			if(wocVar[i] == false){
+		int numFlipped = 0;
+		for(int i = 1; i < WOCSolution.getVars().length; i++){
+			//if(wocVar[i] == false){
+				boolean before = WOCSolution.getVars()[i];
 				flip(WOCSolution, i, sat);
-			}
+				if(WOCSolution.getVars()[i] != before){
+					numFlipped++;
+				}
+			//}
 		}
-		
+		System.out.println("Flipped " + numFlipped + " variables");
 		
 		return WOCSolution;
 		

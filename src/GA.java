@@ -6,9 +6,9 @@ public class GA {
 		ArrayList<Solution> parents = new ArrayList<Solution>();
 		ArrayList<Solution> children = new ArrayList<Solution>();
 		ArrayList<Solution> newGen = new ArrayList<Solution>();
-		int numGens = 100;
-		int popSize = 100; 
-		double mutationRate = 0.03;
+		int numGens = 80;
+		int popSize = 80; 
+		double mutationRate = 0.025;
 		
 		//Initialize parents as initial population
 		parents = genInitial(sat, popSize);

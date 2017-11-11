@@ -20,7 +20,9 @@ public class Controller {
 		ArrayList<Solution> experts = findExperts(bestSolutions);
 		
 		for(int i = 0; i < expertSize; i++) {
-			System.out.println("Expert " + (i + 1) + " fitness: " + experts.get(i).getFitness());
+			System.out.println("\nExpert " + (i + 1) + " fitness: " + experts.get(i).getFitness());
+			System.out.print("Expert " + (i+1) + ": ");
+			experts.get(i).printSolution();
 		}
 		
 		System.out.println();
@@ -42,7 +44,7 @@ public class Controller {
 		
 		
 		
-		double sum = 0;
+		/*double sum = 0;
 		for(int i = 0; i < expertSize; i++) {
             System.out.println("New Expert " + (i + 1) + " fitness: " + experts.get(i).getFitness());
             sum += experts.get(i).getFitness();
@@ -50,7 +52,7 @@ public class Controller {
 
         double avg = sum / expertSize;
 
-        System.out.println("\nAvg Improved Expert Fitness: " + avg);
+        System.out.println("\nAvg Improved Expert Fitness: " + avg);*/
         System.out.println("\nWisdom of Crowds Fitness: " + wisestSolution.getFitness());
 		
 		//calculate the end time
