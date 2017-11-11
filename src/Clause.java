@@ -3,7 +3,7 @@ public class Clause {
 
 	private int var1, var2, var3;
 	
-	private boolean isTrue;
+	private boolean isTrue = false;
 	
 	public Clause(int v1, int v2, int v3){
 		this.var1 = v1;
@@ -22,4 +22,13 @@ public class Clause {
 	public int getVar3(){
 		return this.var3;
 	}
+
+	public boolean isTrue() {
+		return isTrue;
+	}
+
+	public void setTrue(boolean isTrue) {
+		this.isTrue = isTrue;
+	}
+	
 }

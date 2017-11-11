@@ -65,6 +65,8 @@ public class WOC {
 		
 		Solution WOCSolution = new Solution(newVars);
 		return WOCSolution;
+		
+		
 	}
 	
 }

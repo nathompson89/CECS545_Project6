@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Controller {
 	
-	private static int expertSize = 5;
+	private static int expertSize = 20;
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
@@ -15,23 +15,37 @@ public class Controller {
 		ArrayList<Solution> bestSolutions = new ArrayList<Solution>();
 		for(int i = 0; i < 20; i++) {
 			bestSolutions.add(GA.GeneticAlgorithm(sat));
-			System.out.println("GA " + i + " fitness: " + bestSolutions.get(i).getFitness());
 		}
-		
-		System.out.println();
 		 
 		ArrayList<Solution> experts = findExperts(bestSolutions);
 		
 		for(int i = 0; i < expertSize; i++) {
-			System.out.println("Expert " + i + " fitness: " + experts.get(i).getFitness());
+			System.out.println("Expert " + (i + 1) + " fitness: " + experts.get(i).getFitness());
 		}
 		
+		System.out.println();
 		
+		//generate 2D arrays for experts without changing them
+		VarTracker vt1 = new VarTracker(experts, sat);
+		
+		//apply flip heuristic to experts
+		vt1.sortVars();
+		experts = vt1.flipHeuristic(experts);
+		
+		//create new 2D arrays with updated experts
+		VarTracker vt2 = new VarTracker(experts, sat);
 		
 		//Call WOC.WisdomOfCrowds() to get hopefully better solution
 		Solution wisestSolution = WOC.WisdomOfCrowds(experts, sat.getNumVars(), sat.getClauses());
 		wisestSolution.calculateFitness(sat.getClauses());
 		
+		
+		
+		
+		
+		for(int i = 0; i < expertSize; i++) {
+			System.out.println("New Expert " + (i + 1) + " fitness: " + experts.get(i).getFitness());
+		}
 		System.out.println("\nWisdom of Crowds Fitness: " + wisestSolution.getFitness());
 		
 		//calculate the end time
