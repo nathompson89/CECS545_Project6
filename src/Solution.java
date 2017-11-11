@@ -7,6 +7,7 @@ public class Solution {
 	public int[] trueClauses;
 	public int[] numClauses;
 	public float[] crossoverValue;
+	private float GAImprovement;
 
 	
 	public Solution(boolean[] v){
@@ -72,6 +73,34 @@ public class Solution {
 		}
 	}
 	
+	/*public void percentTrueClauses(Clause[] clauses){
+		
+		
+		float[] ptc = new float[vars.length];
+		for(int i = 1; i < vars.length; i++){
+			int numClauses = 0;
+			int numTrue = 0;
+			for(Clause c : clauses){
+				int v1 = Math.abs(c.getVar1());
+				int v2 = Math.abs(c.getVar2());
+				int v3 = Math.abs(c.getVar3());
+				
+				if(v1 == i || v2 == i || v3 == i){
+					numClauses++;
+					if(c.isTrue(vars)){
+						numTrue++;
+					}
+				}
+				
+			}
+			//System.out.printf("NumTrue %d   NumClauses %d \n", numTrue, numClauses);
+			//System.out.println( ((float)numTrue)/numClauses);
+			ptc[i] = ((float)numTrue)/numClauses;
+		}
+		
+		this.percentTrueClauses = ptc;
+	}*/
+	
 	public void setStart(int s){
 		this.sequenceStart = s;
 	}
@@ -114,5 +143,13 @@ public class Solution {
 	
 	public void flipBit(int i){
 		this.vars[i] = !this.vars[i];
+	}
+	
+	public void setImprovement(float f){
+		this.GAImprovement = f;
+	}
+	
+	public float getImprovement(){
+		return this.GAImprovement;
 	}
 }
