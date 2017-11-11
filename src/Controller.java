@@ -3,7 +3,7 @@ import java.util.ArrayList;
 
 public class Controller {
 	
-	private static int expertSize = 20;
+	private static int expertSize = 17;
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
@@ -19,42 +19,27 @@ public class Controller {
 		 
 		ArrayList<Solution> experts = findExperts(bestSolutions);
 		
+		double sum = 0;
 		for(int i = 0; i < expertSize; i++) {
-			System.out.println("\nExpert " + (i + 1) + " fitness: " + experts.get(i).getFitness());
-			System.out.print("Expert " + (i+1) + ": ");
-			experts.get(i).printSolution();
-		}
-		
-		System.out.println();
-		
-		//generate 2D arrays for experts without changing them
-		VarTracker vt1 = new VarTracker(experts, sat);
-		
-		//apply flip heuristic to experts
-		vt1.sortVars();
-		//experts = vt1.flipHeuristic(experts);
-		
-		//create new 2D arrays with updated experts
-		//VarTracker vt2 = new VarTracker(experts, sat);
-		
-		//Call WOC.WisdomOfCrowds() to get hopefully better solution
-		Solution wisestSolution = WOC.WisdomOfCrowds(experts, sat.getNumVars(), sat.getClauses(), sat);
-		wisestSolution.calculateFitness(sat.getClauses());
-		
-		
-		
-		
-		/*double sum = 0;
-		for(int i = 0; i < expertSize; i++) {
-            System.out.println("New Expert " + (i + 1) + " fitness: " + experts.get(i).getFitness());
             sum += experts.get(i).getFitness();
         }
 
         double avg = sum / expertSize;
 
-        System.out.println("\nAvg Improved Expert Fitness: " + avg);*/
-        System.out.println("\nWisdom of Crowds Fitness: " + wisestSolution.getFitness());
+        System.out.printf("%nAvg Expert Fitness: %.2f", avg);
 		
+		System.out.println();
+
+		
+		//Call WOC.WisdomOfCrowds() to get hopefully better solution
+		Solution wisestSolution = WOC.WisdomOfCrowds(experts, sat.getNumVars(), sat.getClauses(), sat);
+		wisestSolution.calculateFitness(sat.getClauses());
+
+        System.out.printf("Wisdom of Crowds Fitness: %.2f", wisestSolution.getFitness());
+        
+        double percentChange = (((wisestSolution.getFitness() - avg)/wisestSolution.getFitness()) * 100);
+        System.out.printf("\nPercent Change: %.2f%%%n", percentChange);
+        
 		//calculate the end time
 		long endTime = System.currentTimeMillis();
 

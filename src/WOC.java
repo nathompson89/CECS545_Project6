@@ -26,22 +26,18 @@ public class WOC {
 				wocVar[i] = true;
 				woc++;
 			}
-			System.out.println("Variable " + i + ": True(" + numTrue + ")    False(" + (crowd.size()-numTrue) + ")");
-		}
-		
-		System.out.println("WOC took " + woc + " variables");
-		
+		}	
 		
 		Solution WOCSolution = new Solution(newVars);
 		int numFlipped = 0;
 		for(int i = 1; i < WOCSolution.getVars().length; i++){
-			//if(wocVar[i] == false){
+			if(wocVar[i] == false){
 				boolean before = WOCSolution.getVars()[i];
 				flip(WOCSolution, i, sat);
 				if(WOCSolution.getVars()[i] != before){
 					numFlipped++;
 				}
-			//}
+			}
 		}
 		System.out.println("Flipped " + numFlipped + " variables");
 		
