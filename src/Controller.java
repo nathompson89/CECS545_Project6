@@ -5,6 +5,9 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+
 public class Controller {
 	
 	private static int expertSize = 20;
@@ -17,15 +20,9 @@ public class Controller {
 		
 		//Call GA.GeneticAlgorithm() to get list of solutions to pass to WOC
 		ArrayList<Solution> bestSolutions = new ArrayList<Solution>();
-		float GAImprovement = 0;
 		for(int i = 0; i < 50; i++) {
-			//System.out.println(i+1);
 			bestSolutions.add(GA.GeneticAlgorithm(sat));
-			GAImprovement += bestSolutions.get(i).getImprovement();
-			//System.out.printf("GA " + (i+1) + " improved by %2f percent\n", bestSolutions.get(i).getImprovement());
 		}
-		
-		System.out.printf("GA Improved solution by an average of %.2f%%", GAImprovement/bestSolutions.size());
 		 
 		ArrayList<Solution> experts = findExperts(bestSolutions);
 		
@@ -57,8 +54,7 @@ public class Controller {
 		float totalTime = (endTime - startTime);
 		System.out.println("\nExecution time: " + (totalTime/1000) + " seconds");
 		
-		
-		//List<String> e = new ArrayList<String>(goodEdges);
+		//GUI for comparing Expert variable assignments and WOC variable assignments
 		JFrame frame1 = new JFrame("Experts vs WOC");
 		frame1.getContentPane().setLayout(new BorderLayout());
 		GUI gui = new GUI(experts, wisestSolution, sat);
@@ -67,6 +63,27 @@ public class Controller {
 		frame1.setLocationRelativeTo(null);
 		frame1.setVisible(true);
 		frame1.add(gui);
+		
+		
+		//GUI for showing clause evaluation for WOC solution
+		JFrame frame2 = new JFrame("WOC Clause Evaluation");
+		frame2.getContentPane().setLayout(new BorderLayout());
+		WOC_GUI wocGUI = new WOC_GUI(sat, wisestSolution, avg);
+		frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame2.setSize(500, 500);
+		frame2.setLocationRelativeTo(null);
+		frame2.setVisible(true);
+		frame2.add(wocGUI);
+		
+		//GUI for showing clause evaluation for WOC solution
+		JFrame frame3 = new JFrame("Expert Clause Evaluation");
+		frame3.getContentPane().setLayout(new BorderLayout());
+		WOC_GUI expertGUI = new WOC_GUI(sat, experts.get(0), avg);
+		frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame3.setSize(500, 500);
+		frame3.setLocationRelativeTo(null);
+		frame3.setVisible(true);
+		frame3.add(expertGUI);
 	}
 	
 	public static ArrayList<Solution> findExperts(ArrayList<Solution> crowd){

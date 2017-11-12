@@ -9,12 +9,13 @@ public class GA {
 		ArrayList<Solution> children = new ArrayList<Solution>();
 		ArrayList<Solution> newGen = new ArrayList<Solution>();
 		int numGens = 80;
-		int popSize = 80; 
+		int popSize = 80;
 		double mutationRate = 0.025;
 		
 		parents.addAll(genInitial(sat, (popSize-parents.size())));
 		
 		float firstGenBest = getBest(parents).getFitness();
+		
 		for(int i = 0; i < numGens; i++){
 				
 			for(int j = 0; j < popSize; j++){
@@ -77,7 +78,6 @@ public class GA {
 		boolean[] taken = new boolean[p1.getVars().length];
 		for(int i = 1; i < p1.getVars().length; i++){
 			if(p1.crossoverValue[i] > 0.5f){
-			//if(p1.percentTrueClauses[i] > 0.95){
 				vars[i] = p1.getVars()[i];
 				taken[i] = true;
 			}
@@ -94,29 +94,6 @@ public class GA {
 		
 		return child;
 	}
-	
-	/*public static Solution Crossover1(Solution p1, Solution p2){
-		boolean[] vars = new boolean[p1.getVars().length];
-		
-		int n1 = (int) Math.random() * p1.getVars().length;
-		int n2 = (int) Math.random() * p1.getVars().length;
-		
-		int start = Math.min(n1, n2);
-		int end = Math.max(n1, n2);
-		
-		for(int i = start; i <= end; i++){
-			vars[i] = p1.getVars()[i];
-		}
-		
-		for(int i = 0; i < p2.getVars().length; i++){
-			if(i < start || i > end){
-				vars[i] = p2.getVars()[i];
-			}
-		}
-		
-		Solution child = new Solution(vars);
-		return child;
-	}*/
 	
 	//method to generate the starting parents 
 	private static ArrayList<Solution> genInitial(SAT sat, int popSize){
@@ -169,22 +146,6 @@ public class GA {
 		return s;
 	}
 	
-	/*public static Solution mutate1(Solution s, Clause[] clauses){
-		boolean[] vars = s.getVars();
-		s.percentTrueClauses(clauses);
-		for(int i = 1; i < vars.length; i++){
-			
-			//System.out.println(s.percentTrueClauses[i]);
-			if(s.percentTrueClauses[i] < .80){
-				vars[i] = !vars[i];
-				s.percentTrueClauses(clauses);
-			}
-		}
-		//Solution newS = new Solution(vars);
-		s.setVars(vars);
-		return s;
-	}*/
-	
 	public static Solution tournamentSelection(ArrayList<Solution> parents, int n){
 		//Method for selecting a parent from 5 random individuals
 		//Returns individual with best fitness
@@ -213,7 +174,7 @@ public class GA {
 		return bestSolution;
 	}
 	
-	private static ArrayList<Solution> getGreedySolutions(Clause[] clauses){
+	/*private static ArrayList<Solution> getGreedySolutions(Clause[] clauses){
 		ArrayList<Solution> greedy = new ArrayList<Solution>();
 		
 		for(int i = 0; i < 6; i++){
@@ -306,14 +267,14 @@ public class GA {
 		}
 		
 		return greedy;
-	}
+	}*/
 	
-	private static float getAverageFitness(ArrayList<Solution> solutions){
+	/*private static float getAverageFitness(ArrayList<Solution> solutions){
 		float total = 0;
 		for(Solution s : solutions){
 			total += s.getFitness();
 		}
 		
 		return total/solutions.size();
-	}
+	}*/
 }

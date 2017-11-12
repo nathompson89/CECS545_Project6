@@ -21,7 +21,7 @@ public class Clause {
 		return this.var3;
 	}
 	
-	/*public boolean isTrue(boolean[] vars){
+	public boolean[] isTrue(boolean[] vars){
 		boolean b1, b2, b3;
 		if((var1 >= 0 && vars[Math.abs(var1)] == true) || (var1 < 0 && vars[Math.abs(var1)] == false)){
 			b1 = true;
@@ -44,12 +44,8 @@ public class Clause {
 			b3 = false;
 		}
 		
-		if( b1 == true || b2 == true || b3 == true){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}*/
+		boolean[] b = new boolean[]{b1, b2, b3};
+		return b;
+	}
 	
 }
