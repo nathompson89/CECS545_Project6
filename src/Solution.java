@@ -7,6 +7,7 @@ public class Solution {
 	public int[] trueClauses;
 	public int[] numClauses;
 	public float[] crossoverValue;
+	private float GAImprovement;
 
 	
 	public Solution(boolean[] v){
@@ -72,6 +73,7 @@ public class Solution {
 		}
 	}
 	
+	
 	public void setStart(int s){
 		this.sequenceStart = s;
 	}
@@ -114,5 +116,13 @@ public class Solution {
 	
 	public void flipBit(int i){
 		this.vars[i] = !this.vars[i];
+	}
+	
+	public void setImprovement(float f){
+		this.GAImprovement = f;
+	}
+	
+	public float getImprovement(){
+		return this.GAImprovement;
 	}
 }

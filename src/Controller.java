@@ -1,9 +1,16 @@
+import java.awt.BorderLayout;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JFrame;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class Controller {
 	
-	private static int expertSize = 17;
+	private static int expertSize = 20;
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
@@ -46,6 +53,37 @@ public class Controller {
 		//calculate the total time and print it
 		float totalTime = (endTime - startTime);
 		System.out.println("\nExecution time: " + (totalTime/1000) + " seconds");
+		
+		//GUI for comparing Expert variable assignments and WOC variable assignments
+		JFrame frame1 = new JFrame("Experts vs WOC");
+		frame1.getContentPane().setLayout(new BorderLayout());
+		GUI gui = new GUI(experts, wisestSolution, sat);
+		frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame1.setSize(500, 500);
+		frame1.setLocationRelativeTo(null);
+		frame1.setVisible(true);
+		frame1.add(gui);
+		
+		
+		//GUI for showing clause evaluation for WOC solution
+		JFrame frame2 = new JFrame("WOC Clause Evaluation");
+		frame2.getContentPane().setLayout(new BorderLayout());
+		WOC_GUI wocGUI = new WOC_GUI(sat, wisestSolution, avg);
+		frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame2.setSize(500, 500);
+		frame2.setLocationRelativeTo(null);
+		frame2.setVisible(true);
+		frame2.add(wocGUI);
+		
+		//GUI for showing clause evaluation for WOC solution
+		JFrame frame3 = new JFrame("Expert Clause Evaluation");
+		frame3.getContentPane().setLayout(new BorderLayout());
+		WOC_GUI expertGUI = new WOC_GUI(sat, experts.get(0), avg);
+		frame3.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame3.setSize(500, 500);
+		frame3.setLocationRelativeTo(null);
+		frame3.setVisible(true);
+		frame3.add(expertGUI);
 	}
 	
 	public static ArrayList<Solution> findExperts(ArrayList<Solution> crowd){

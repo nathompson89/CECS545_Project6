@@ -9,6 +9,7 @@ public class WOC {
 		boolean[] newVars = new boolean[numVars+1]; //default false
 		boolean[] wocVar = new boolean[numVars+1]; //default false
 		int woc = 0;
+
 		for(int i = 1; i <= numVars; i++){
 			int numTrue = 0;
 			for(Solution s : crowd){
