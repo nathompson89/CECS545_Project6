@@ -22,18 +22,19 @@ public class SAT {
 		int numClauses = 0;
 		
 		
-		for(int i = 0; i < 4; i++){
-			if(i == 3){
+		for(int i = 0; i < 8; i++){
+			if(i == 7){
 				scan1.next();
 				scan1.next();
 				numVars = scan1.nextInt();
+				numClauses = scan1.nextInt();
 			}
 			scan1.nextLine();
 		}
-		while(scan1.hasNextLine()){
-			numClauses++;
-			scan1.nextLine();
-		}
+		//while(scan1.hasNextLine()){
+		//	numClauses++;
+		//	scan1.nextLine();
+		//}
 		
 		scan1.close();
 		
@@ -41,13 +42,15 @@ public class SAT {
 		Scanner scan2 = new Scanner(new File(filename));
 		
 		int var1, var2, var3;
-		for(int i = 0; i < 4; i++){
-			scan2.nextLine();
+		for(int i = 0; i <= 7; i++){
+			System.out.println(scan2.nextLine());
 		}
+		System.out.println(numClauses);
 		for(int i = 0; i < numClauses; i++){
 			var1 = scan2.nextInt();
 			var2 = scan2.nextInt();
 			var3 = scan2.nextInt();
+			//System.out.println(i + " " + var1 + " " + var2 + " " + var3);
 			scan2.nextInt(); //Read extra 0 at the end of each clause
 			Clause newClause = new Clause(var1, var2, var3);
 			c[i] = newClause;

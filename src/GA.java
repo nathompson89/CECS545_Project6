@@ -153,7 +153,7 @@ public class GA {
 		for(int i = 1; i <= n; i++){
 			int r = (int) (Math.random() * parents.size());
 			Solution t = parents.get(r);
-			if(best == null || best.getFitness() > t.getFitness()){
+			if(best == null || best.getFitness() < t.getFitness()){
 				best = t;
 			}
 		}

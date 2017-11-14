@@ -10,13 +10,13 @@ import java.util.ArrayList;
 
 public class Controller {
 	
-	private static int expertSize = 20;
+	private static int expertSize = 40;
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		long startTime = System.currentTimeMillis();
 		
-		SAT sat = new SAT("SAT1.CNF");
+		SAT sat = new SAT("uf100-01.CNF");
 		
 		//Call GA.GeneticAlgorithm() to get list of solutions to pass to WOC
 		ArrayList<Solution> bestSolutions = new ArrayList<Solution>();
