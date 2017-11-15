@@ -54,7 +54,7 @@ public class Solution {
 		this.fitness = ((float) this.numTrue/clauses.length)*100;
 		for(int i = 0; i < numClauses.length; i++){
 			if(this.numClauses[i] > 0){
-				this.crossoverValue[i] = (float)(this.trueClauses[i]/this.numClauses[i]);
+				this.crossoverValue[i] = ((float)this.trueClauses[i])/this.numClauses[i];
 			}
 			else{
 				this.crossoverValue[i] = 0;

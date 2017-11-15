@@ -73,11 +73,12 @@ public class GA {
 	
 	public static Solution Crossover(Solution p1, Solution p2){
 		boolean[] vars = new boolean[p1.getVars().length];
-		
+
 		//Fill in child values using good p1 values
 		boolean[] taken = new boolean[p1.getVars().length];
 		for(int i = 1; i < p1.getVars().length; i++){
-			if(p1.crossoverValue[i] > 0.5f){
+			if(p1.crossoverValue[i] > .75f){
+				//System.out.println(p1.crossoverValue[i]);
 				vars[i] = p1.getVars()[i];
 				taken[i] = true;
 			}

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Controller {
 	
-	private static int expertSize = 40;
+	private static int expertSize = 20;
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
